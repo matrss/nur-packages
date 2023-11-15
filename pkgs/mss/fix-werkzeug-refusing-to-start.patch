@@ -1,0 +1,21 @@
+diff --git a/mslib/mscolab/server.py b/mslib/mscolab/server.py
+index 2cb0e7c0..f30bae18 100644
+--- a/mslib/mscolab/server.py
++++ b/mslib/mscolab/server.py
+@@ -29,6 +29,7 @@ import json
+ import logging
+ import datetime
+ import secrets
++import os
+ import fs
+ import socketio
+ import sqlalchemy.exc
+@@ -869,7 +870,7 @@ if mscolab_settings.USE_SAML2:
+ 
+ def start_server(app, sockio, cm, fm, port=8083):
+     create_files()
+-    sockio.run(app, port=port)
++    sockio.run(app, port=port, allow_unsafe_werkzeug=("PYTEST_CURRENT_TEST" in os.environ))
+ 
+ 
+ def main():
